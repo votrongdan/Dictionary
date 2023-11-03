@@ -3,13 +3,13 @@ package dictionary;
 import java.util.ArrayList;
 
 public class Dictionary {
-    private ArrayList<String> dictionary = new ArrayList<String>();
+    private ArrayList<Word> dictionary = new ArrayList<Word>();
 
-    public void setDictionary(ArrayList<String> dictionary) {
+    public void setDictionary(ArrayList<Word> dictionary) {
         this.dictionary = dictionary;
     }
 
-    public ArrayList<String> getDictionary() {
+    public ArrayList<Word> getDictionary() {
         return dictionary;
     }
 }
