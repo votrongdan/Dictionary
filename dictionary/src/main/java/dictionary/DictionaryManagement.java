@@ -1,6 +1,7 @@
 package dictionary;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 public class DictionaryManagement {
     public void insertFromCommandline(Dictionary dictionary) {
 
-        ArrayList<Word> words = dictionary.getDictionary();
+        ArrayList<Word> words = dictionary.getWords();
 
         Scanner input = new Scanner(System.in);
         int n = input.nextInt();
@@ -27,39 +28,54 @@ public class DictionaryManagement {
 
         }
 
-        dictionary.setDictionary(words);
+        dictionary.setWords(words);
         
     }
 
     public void insertFromFile(Dictionary dictionary) throws IOException {
 
-        ArrayList<Word> wordList = dictionary.getDictionary();
+        ArrayList<Word> words = dictionary.getWords();
         
-        File myObj = new File("C:\\Users\\trong\\OneDrive - MSFT\\A\\Homework\\OOP\\DictionaryProject\\dictionary\\src\\main\\java\\dictionary\\dictionary.txt");
-        Scanner text = new Scanner(myObj);
-
+        File file = new File("dictionary/src/main/java/dictionary/dictionary.txt");
+        Scanner text = new Scanner(file);
+        
         while (text.hasNextLine()) {
             Word newWord = new Word();
             String line = text.nextLine();
             String temp[] = line.split("    ");
             newWord.setWord_target(temp[0]);
             newWord.setWord_explain(temp[1]);
-            wordList.add(newWord);
+            words.add(newWord);
         }
         
     }
 
+    public void dictionaryExportToFile(Dictionary dictionary) throws IOException {
+
+        ArrayList<Word> words = dictionary.getWords();
+        
+        FileWriter writer = new FileWriter("dictionary/src/main/java/dictionary/dictionary.txt");
+        
+        for (int i = 0; i < words.size(); i++) {
+            writer.write(words.get(i).getWord_target());
+            writer.write("    ");
+            writer.write(words.get(i).getWord_explain());
+            writer.write("\n");
+        }
+        writer.close();
+    }
+
     public void addWord(Dictionary dictionary) {
 
-        ArrayList<Word> wordList = dictionary.getDictionary();
+        ArrayList<Word> words = dictionary.getWords();
 
         Scanner input = new Scanner(System.in);
 
         String target = input.nextLine();
         String explain = input.nextLine();
 
-        for (int i = 0; i < wordList.size(); i++) {
-            if (target.equals(wordList.get(i).getWord_target()) && explain.equals(wordList.get(i).getWord_explain())) {
+        for (int i = 0; i < words.size(); i++) {
+            if (target.equals(words.get(i).getWord_target()) && explain.equals(words.get(i).getWord_explain())) {
                 System.out.println("Tu nay da ton tai.");
                 return;
             }
@@ -68,43 +84,66 @@ public class DictionaryManagement {
         Word newWord = new Word();
         newWord.setWord_target(target);
         newWord.setWord_explain(explain);
-        wordList.add(newWord);   
+        words.add(newWord);   
         
-        dictionary.setDictionary(wordList);
+        dictionary.setWords(words);
 
     }
 
     public String dictionaryLookup(Dictionary dictionary) {
 
-        ArrayList<Word> wordlList = dictionary.getDictionary();
+        ArrayList<Word> words = dictionary.getWords();
 
         Scanner input = new Scanner(System.in);
 
         String inputString = input.nextLine();
 
-        for (int i = 0; i < wordlList.size(); i++) {
-            String target = wordlList.get(i).getWord_target();
+        for (int i = 0; i < words.size(); i++) {
+            String target = words.get(i).getWord_target();
             
             if (inputString.equals(target)) {
                 
-                return wordlList.get(i).getWord_explain();
+                return words.get(i).getWord_explain();
             }
         }
         return "";
     }
 
+    public void updateWord(Dictionary dictionary) {
+
+        ArrayList<Word> words = dictionary.getWords();
+
+        System.out.print("Nhap tu can sua: ");
+
+        Scanner input = new Scanner(System.in);
+        String inputString = input.nextLine();
+
+        for (int i = 0; i < words.size(); i++) {
+            if (inputString.equals(words.get(i).getWord_target())) {
+                System.out.print("Nhap tu vung tieng Anh: ");
+                String target = input.nextLine();
+                System.out.print("Nhap nghia tieng Viet: ");
+                String explain = input.nextLine();
+                words.add(new Word(target, explain));
+                words.remove(i);
+                return;
+            }
+        }
+
+    }
+
     public void deleteWord(Dictionary dictionary) {
 
-        ArrayList<Word> wordList = dictionary.getDictionary();
+        ArrayList<Word> words = dictionary.getWords();
 
         Scanner input = new Scanner(System.in);
 
         String inputString = input.nextLine();
 
-        for (int i = 0; i < wordList.size(); i++) {
-            if (inputString.equals(wordList.get(i).getWord_target())) {
-                wordList.remove(i);
-                dictionary.setDictionary(wordList);
+        for (int i = 0; i < words.size(); i++) {
+            if (inputString.equals(words.get(i).getWord_target())) {
+                words.remove(i);
+                dictionary.setWords(words);
                 return;
             }
         }
