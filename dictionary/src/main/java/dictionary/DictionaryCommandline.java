@@ -41,20 +41,23 @@ public class DictionaryCommandline {
     //     insertFromCommandline(dictionary); // nhập dữ liệu từ vựng
     //     showAllWords(dictionary); // in danh sách từ vựng theo alphabet
     // }
-    // public void dictionarySearcher(String input) {
-    //     ArrayList<String> wordList = getWordList(); // Lấy danh sách word từ từ điển
-    //     ArrayList<String> resultList = new ArrayList<>(); // Tạo ds rỗng để chứa từ nối
-    //     for (String word : wordList) { // Vòng lặp từng từ trong danh sách từ
-    //         if (word.startsWith(input)) { // Kiểm tra xem từ đó có bắt đầu bằng từ nhập vào không
-    //             resultList.add(word); //Thêm từ vào danh sách kết quả
-    //         }
-    //     }
-    //     // Print the result list In ra ds kết quả
-    //     System.out.println("Các từ cần tìm " + input + " : ");
-    //     for (String word : resultList) {
-    //         System.out.println(word);
-    //     }
-    // }
+    public void dictionarySearcher(Dictionary dictionary) {
+        System.out.print("Nhap tu khoa: ");
+        Scanner input = new Scanner(System.in);
+        String inputString = input.nextLine();
+        ArrayList<Word> words = dictionary.getWords(); // Lấy danh sách word từ từ điển
+        ArrayList<String> resultList = new ArrayList<>(); // Tạo ds rỗng để chứa từ nối
+        for (Word word : words) { // Vòng lặp từng từ trong danh sách từ
+            if (word.getWord_target().startsWith(inputString)) { // Kiểm tra xem từ đó có bắt đầu bằng từ nhập vào không
+                resultList.add(word.getWord_target()); //Thêm từ vào danh sách kết quả
+            }
+        }
+        // Print the result list In ra ds kết quả
+        System.out.println("Các từ cần tìm " + input + " : ");
+        for (String word : resultList) {
+            System.out.println(word);
+        }
+    }
 
     public void dictionaryAdvanced(Dictionary dictionary) throws IOException {
         DictionaryManagement dictionaryManagement = new DictionaryManagement();
@@ -88,7 +91,7 @@ public class DictionaryCommandline {
             } else if (action == 5) { 
                 dictionaryManagement.dictionaryLookup(dictionary);
             } else if (action == 6) { 
-                // searchWord();
+                dictionarySearcher(dictionary);
             } else if (action == 7) { 
                 // playGame();
             } else if (action == 8) { 
