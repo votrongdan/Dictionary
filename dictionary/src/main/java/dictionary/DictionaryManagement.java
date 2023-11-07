@@ -12,12 +12,15 @@ public class DictionaryManagement {
         ArrayList<Word> words = dictionary.getWords();
 
         Scanner input = new Scanner(System.in);
+        System.out.print("Nhap so luong tu: ");
         int n = input.nextInt();
         input.nextLine();
 
         for (int i = 0; i < n; i++) {
 
+            System.out.print("Nhap tu vung tieng Anh: ");
             String target = input.nextLine();
+            System.out.print("Nhap nghia tieng Viet: ")
             String explain = input.nextLine();
 
             Word newWord = new Word();
@@ -70,13 +73,14 @@ public class DictionaryManagement {
         ArrayList<Word> words = dictionary.getWords();
 
         Scanner input = new Scanner(System.in);
-
+        System.out.print("Nhap tu vung tieng Anh: ");
         String target = input.nextLine();
+        System.out.print("Nhap nghia tieng Viet: ")
         String explain = input.nextLine();
 
         for (int i = 0; i < words.size(); i++) {
             if (target.equals(words.get(i).getWord_target()) && explain.equals(words.get(i).getWord_explain())) {
-                System.out.println("Tu nay da ton tai.");
+                System.out.println("Tu nay da co trong tu dien.");
                 return;
             }
         }
@@ -90,23 +94,24 @@ public class DictionaryManagement {
 
     }
 
-    public String dictionaryLookup(Dictionary dictionary) {
+    public void dictionaryLookup(Dictionary dictionary) {
 
         ArrayList<Word> words = dictionary.getWords();
 
+        System.out.print("Nhap tu can tra cuu: ");
         Scanner input = new Scanner(System.in);
-
         String inputString = input.nextLine();
 
         for (int i = 0; i < words.size(); i++) {
             String target = words.get(i).getWord_target();
-            
             if (inputString.equals(target)) {
-                
-                return words.get(i).getWord_explain();
+                System.out.print(words.get(i).getWord_target());
+                System.out.print("    ");
+                System.out.println(words.get(i).getWord_explain());
+                return;
             }
         }
-        return "";
+        System.out.println("Khong co tu can tra cuu trong tu dien.");
     }
 
     public void updateWord(Dictionary dictionary) {
@@ -114,7 +119,6 @@ public class DictionaryManagement {
         ArrayList<Word> words = dictionary.getWords();
 
         System.out.print("Nhap tu can sua: ");
-
         Scanner input = new Scanner(System.in);
         String inputString = input.nextLine();
 
@@ -136,8 +140,8 @@ public class DictionaryManagement {
 
         ArrayList<Word> words = dictionary.getWords();
 
+        System.out.print("Nhap tu can xoa: ");
         Scanner input = new Scanner(System.in);
-
         String inputString = input.nextLine();
 
         for (int i = 0; i < words.size(); i++) {
@@ -147,7 +151,7 @@ public class DictionaryManagement {
                 return;
             }
         }
-        System.out.println("Khong ton tai tu can xoa.");
+        System.out.println("Khong co tu can xoa trong tu dien.");
         input.close();
     }
 }
