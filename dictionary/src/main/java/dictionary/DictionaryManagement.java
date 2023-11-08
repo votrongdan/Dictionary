@@ -20,7 +20,7 @@ public class DictionaryManagement {
 
             System.out.print("Nhap tu vung tieng Anh: ");
             String target = input.nextLine();
-            System.out.print("Nhap nghia tieng Viet: ")
+            System.out.print("Nhap nghia tieng Viet: ");
             String explain = input.nextLine();
 
             Word newWord = new Word();
@@ -75,7 +75,7 @@ public class DictionaryManagement {
         Scanner input = new Scanner(System.in);
         System.out.print("Nhap tu vung tieng Anh: ");
         String target = input.nextLine();
-        System.out.print("Nhap nghia tieng Viet: ")
+        System.out.print("Nhap nghia tieng Viet: ");
         String explain = input.nextLine();
 
         for (int i = 0; i < words.size(); i++) {
@@ -136,7 +136,7 @@ public class DictionaryManagement {
 
     }
 
-    public void deleteWord(Dictionary dictionary) {
+    public void removeWord(Dictionary dictionary) {
 
         ArrayList<Word> words = dictionary.getWords();
 
@@ -152,6 +152,5 @@ public class DictionaryManagement {
             }
         }
         System.out.println("Khong co tu can xoa trong tu dien.");
-        input.close();
     }
 }
