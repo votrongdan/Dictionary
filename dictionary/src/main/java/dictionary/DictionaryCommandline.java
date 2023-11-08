@@ -8,20 +8,29 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class DictionaryCommandline {
-//   public void showAllWords(Dictionary dictionary) throws IOException {
-//         // sắp xếp các từ theo alphabet
-//         ArrayList<Word> words = dictionary.getWords();
-//         Collections.sort(dictionary.getWords(), new Comparator<Word>()) {
-//             public int compare(Word no1, Word no2) {
-//                 return no1.getWord_target().compareTo(no2.getWord_target());
-//             }
-//         };
-//         System.out.println("No | English | Vietnamese");
-//         for(int i = 0; i < dictionary.getWords().size(); i++) {
-//             Word word = dictionary.getWords().get(i);
-//             System.out.println((i+1) + " | " + word.getWord_target() + " | " + word.getWord_explain());
-//         }
-//     }
+     public void showAllWords() {
+        DictionaryManagement dsachtuvung = new DictionaryManagement();
+        sortWord(dsachtuvung.getWords()); // sắp xếp danh sách từ vựng theo alphabet
+        System.out.println("No | English | Vietnamese");// duyệt danh sách và in ra từ vựng
+        for (int i = 0; i < dsachtuvung.getWords().size(); i++) {
+            Word word = dsachtuvung.getWords().get(i);
+            System.out.println((i + 1) + " | " + word.getWord_target() + " | " + word.getWord_explain());
+        }
+    }
+    // Hàm sortWord() để sắp xếp danh sách từ vựng theo thứ tự alphabet
+    public void sortWord(ArrayList<Word> words) {
+        for (int i = 0; i < words.size() - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < words.size(); j++) {
+                if (words.get(j).getWord_target().compareTo(words.get(minIndex).getWord_target()) < 0) {
+                    minIndex = j;
+                }
+            }
+            Word temp = words.get(i);
+            words.set(i, words.get(minIndex));
+            words.set(minIndex, temp);
+        }
+    }
 
     // public void insertFromCommandline(Dictionary dictionary) {
     //     Scanner sc = new Scanner(System.in);
