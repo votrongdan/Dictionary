@@ -53,7 +53,7 @@ public class DictionaryCommandline {
             }
         }
         // Print the result list In ra ds kết quả
-        System.out.println("Các từ cần tìm " + input + " : ");
+        System.out.println("Các từ cần tìm " + inputString + " : ");
         for (String word : resultList) {
             System.out.println(word);
         }
