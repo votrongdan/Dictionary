@@ -1,15 +1,11 @@
 package dictionary;
-import org.w3c.dom.ls.LSOutput;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class DictionaryCommandline {
-     public void showAllWords() {
-        DictionaryManagement dsachtuvung = new DictionaryManagement();
+     public void showAllWords(Dictionary dsachtuvung) {
         sortWord(dsachtuvung.getWords()); // sắp xếp danh sách từ vựng theo alphabet
         System.out.println("No | English | Vietnamese");// duyệt danh sách và in ra từ vựng
         for (int i = 0; i < dsachtuvung.getWords().size(); i++) {
@@ -96,7 +92,7 @@ public class DictionaryCommandline {
             } else if (action == 3) { 
                 dictionaryManagement.updateWord(dictionary);
             } else if (action == 4) { 
-                // displayWordList();
+                showAllWords(dictionary);
             } else if (action == 5) { 
                 dictionaryManagement.dictionaryLookup(dictionary);
             } else if (action == 6) { 
