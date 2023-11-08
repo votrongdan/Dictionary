@@ -1,0 +1,6 @@
+bird    chim
+cat    meo
+chicken    ga
+fish    ca
+tiger    con ho
+bee    con ong
