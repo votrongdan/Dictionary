@@ -7,10 +7,15 @@ import java.util.Scanner;
 public class DictionaryCommandline {
      public void showAllWords(Dictionary dsachtuvung) {
         sortWord(dsachtuvung.getWords()); // sắp xếp danh sách từ vựng theo alphabet
-        System.out.println("No | English | Vietnamese");// duyệt danh sách và in ra từ vựng
+        System.out.println("No     | English     | Vietnamese ");// duyệt danh sách và in ra từ vựng
         for (int i = 0; i < dsachtuvung.getWords().size(); i++) {
+            String no = Integer.toString(i + 1);
+            String tmp1 = "       ".substring(no.length());
+            no += tmp1;
             Word word = dsachtuvung.getWords().get(i);
-            System.out.println((i + 1) + " | " + word.getWord_target() + " | " + word.getWord_explain());
+            String tmp2 = "           ".substring(word.getWord_target().length());
+            word.getWord_target() += tmp2;
+            System.out.println(no + "| " + word.getWord_target() + "| " + word.getWord_explain());
         }
     }
     // Hàm sortWord() để sắp xếp danh sách từ vựng theo thứ tự alphabet
