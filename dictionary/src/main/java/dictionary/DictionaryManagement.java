@@ -3,15 +3,17 @@ package dictionary;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DictionaryManagement {
-    public void insertFromCommandline(Dictionary dictionary) {
+    public void insertFromCommandline(Dictionary dictionary, Scanner input) {
 
         ArrayList<Word> words = dictionary.getWords();
-
-        Scanner input = new Scanner(System.in);
         System.out.print("Nhap so luong tu: ");
         int n = input.nextInt();
         input.nextLine();
@@ -50,7 +52,7 @@ public class DictionaryManagement {
             newWord.setWord_explain(temp[1]);
             words.add(newWord);
         }
-        
+        text.close();
     }
 
     public void dictionaryExportToFile(Dictionary dictionary) throws IOException {
@@ -68,11 +70,11 @@ public class DictionaryManagement {
         writer.close();
     }
 
-    public void addWord(Dictionary dictionary) {
+    public void addWord(Dictionary dictionary, Scanner input) {
 
         ArrayList<Word> words = dictionary.getWords();
 
-        Scanner input = new Scanner(System.in);
+        
         System.out.print("Nhap tu vung tieng Anh: ");
         String target = input.nextLine();
         System.out.print("Nhap nghia tieng Viet: ");
@@ -91,15 +93,13 @@ public class DictionaryManagement {
         words.add(newWord);   
         
         dictionary.setWords(words);
-
     }
 
-    public void dictionaryLookup(Dictionary dictionary) {
+    public void dictionaryLookup(Dictionary dictionary, Scanner input) {
 
         ArrayList<Word> words = dictionary.getWords();
 
         System.out.print("Nhap tu can tra cuu: ");
-        Scanner input = new Scanner(System.in);
         String inputString = input.nextLine();
 
         for (int i = 0; i < words.size(); i++) {
@@ -114,14 +114,11 @@ public class DictionaryManagement {
         System.out.println("Khong co tu can tra cuu trong tu dien.");
     }
 
-    public void updateWord(Dictionary dictionary) {
+    public void updateWord(Dictionary dictionary, Scanner input) {
 
         ArrayList<Word> words = dictionary.getWords();
-
         System.out.print("Nhap tu can sua: ");
-        Scanner input = new Scanner(System.in);
         String inputString = input.nextLine();
-
         for (int i = 0; i < words.size(); i++) {
             if (inputString.equals(words.get(i).getWord_target())) {
                 System.out.print("Nhap tu vung tieng Anh: ");
@@ -133,15 +130,14 @@ public class DictionaryManagement {
                 return;
             }
         }
-
+        System.out.println("Khong có tu can sua trong tu dien.");
     }
 
-    public void removeWord(Dictionary dictionary) {
+    public void removeWord(Dictionary dictionary, Scanner input) {
 
         ArrayList<Word> words = dictionary.getWords();
 
         System.out.print("Nhap tu can xoa: ");
-        Scanner input = new Scanner(System.in);
         String inputString = input.nextLine();
 
         for (int i = 0; i < words.size(); i++) {
@@ -152,5 +148,27 @@ public class DictionaryManagement {
             }
         }
         System.out.println("Khong co tu can xoa trong tu dien.");
+    }
+
+    public void importFromDatabase(Dictionary dictionary) {
+        ArrayList<Word> words = dictionary.getWords();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/edict?user=root&password=waterresistcasio");
+            Statement e = connection.createStatement();
+            ResultSet explain = e.executeQuery("select detail from tbl_edict limit 139239");
+            Statement t = connection.createStatement();
+            ResultSet target = t.executeQuery("select word from tbl_edict limit 139239");
+            while (explain.next() && target.next()) {
+                Word newWord = new Word();
+                newWord.setWord_explain(explain.getString(1));
+                newWord.setWord_target(target.getString(1));
+                words.add(newWord);
+            }
+            dictionary.setWords(words);
+            connection.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
