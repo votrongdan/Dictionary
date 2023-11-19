@@ -14,8 +14,7 @@ public class DictionaryCommandline {
             no += tmp1;
             Word word = dsachtuvung.getWords().get(i);
             String tmp2 = "           ".substring(word.getWord_target().length());
-            word.getWord_target() += tmp2;
-            System.out.println(no + "| " + word.getWord_target() + "| " + word.getWord_explain());
+            System.out.println(no + "| " + word.getWord_target() + tmp2 + "| " + word.getWord_explain());
         }
     }
     // Hàm sortWord() để sắp xếp danh sách từ vựng theo thứ tự alphabet
@@ -47,13 +46,13 @@ public class DictionaryCommandline {
     //         dictionary.addWord(word); // thêm word vào dictionary
     //     }
     // }
-    // public void dictionaryBasic(Dictionary dictionary) {
-    //     insertFromCommandline(dictionary); // nhập dữ liệu từ vựng
-    //     showAllWords(dictionary); // in danh sách từ vựng theo alphabet
-    // }
-    public void dictionarySearcher(Dictionary dictionary) {
+    public void dictionaryBasic(Dictionary dictionary, Scanner input) {
+        DictionaryManagement dictionaryManagement = new DictionaryManagement();
+        dictionaryManagement.insertFromCommandline(dictionary, input); // nhập dữ liệu từ vựng
+        showAllWords(dictionary); // in danh sách từ vựng theo alphabet
+    }
+    public void dictionarySearcher(Dictionary dictionary, Scanner input) {
         System.out.print("Nhap tu khoa: ");
-        Scanner input = new Scanner(System.in);
         String inputString = input.nextLine();
         ArrayList<Word> words = dictionary.getWords(); // Lấy danh sách word từ từ điển
         ArrayList<String> resultList = new ArrayList<>(); // Tạo ds rỗng để chứa từ nối
@@ -69,7 +68,7 @@ public class DictionaryCommandline {
         }
     }
 
-    public void dictionaryAdvanced(Dictionary dictionary) throws IOException {
+    public void dictionaryAdvanced(Dictionary dictionary, Scanner input) throws IOException {
         DictionaryManagement dictionaryManagement = new DictionaryManagement();
         Scanner sc = new Scanner(System.in);
         boolean exit = false; 
@@ -91,17 +90,17 @@ public class DictionaryCommandline {
                 exit = true;
                 System.out.println("Cảm ơn đã dùng ứng dụng từ điển");
             } else if (action == 1) { 
-                dictionaryManagement.addWord(dictionary);
+                dictionaryManagement.addWord(dictionary, input);
             } else if (action == 2) { 
-                dictionaryManagement.removeWord(dictionary);
+                dictionaryManagement.removeWord(dictionary, input);
             } else if (action == 3) { 
-                dictionaryManagement.updateWord(dictionary);
+                dictionaryManagement.updateWord(dictionary, input);
             } else if (action == 4) { 
                 showAllWords(dictionary);
             } else if (action == 5) { 
-                dictionaryManagement.dictionaryLookup(dictionary);
+                dictionaryManagement.dictionaryLookup(dictionary, input);
             } else if (action == 6) { 
-                dictionarySearcher(dictionary);
+                dictionarySearcher(dictionary, input);
             } else if (action == 7) { 
                 // playGame();
             } else if (action == 8) { 
